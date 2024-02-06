@@ -1,0 +1,1 @@
+# simple-react-admin-template
