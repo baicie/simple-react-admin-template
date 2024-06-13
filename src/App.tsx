@@ -45,7 +45,6 @@ function App() {
   }, [i18n]);
 
   const changeLocale = useCallback((e: RadioChangeEvent) => {
-    console.log(e.target.value);
     i18n.changeLanguage(e.target.value);
   }, []);
 
