@@ -1,9 +1,19 @@
-import { lazy } from "react";
-import { RouteObject, createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import Layout from "../layout";
+import { Suspense, lazy } from 'react'
+import type { RouteObject } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
+import Layout from '../layout'
 
-const Demo = lazy(() => import("../view/demo/demo-container"));
+const Overview = lazy(() => import('../view/overview/overview-container'))
+const Demo = lazy(() => import('../view/demo/demo-container'))
+const Loading = () => <div>Loading...</div>
+
+const warpCom = (Com: any) => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Com />
+    </Suspense>
+  )
+}
 
 export const routes: RouteObject[] = [
   {
@@ -11,17 +21,17 @@ export const routes: RouteObject[] = [
     errorElement: <div>error</div>,
     children: [
       {
-        path: "/",
-        element: <App />,
+        path: '/',
+        element: warpCom(Overview),
       },
       {
-        path: "/demo",
-        element: <Demo />,
+        path: '/demo',
+        element: warpCom(Demo),
       },
     ],
   },
-];
+]
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes)
 
-export default router;
+export default router

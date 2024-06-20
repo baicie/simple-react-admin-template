@@ -3,11 +3,13 @@ import { useCallback } from 'react'
 import { useInjectable } from '../../hooks/use-di'
 import { useLogger } from '../../hooks/use-logger'
 import { Demo } from '../../store/demo'
-import DemoView from './demo-view'
+import OverviewView from './overview-view'
+import { useTranslation } from 'react-i18next'
 
 export default observer(() => {
   const demo = useInjectable(Demo)
   const logger = useLogger()
+  const { t } = useTranslation()
 
   const handleClick = useCallback(() => {
     logger.debug('click debug')
@@ -18,5 +20,5 @@ export default observer(() => {
     demo.doSth()
   }, [demo, logger])
 
-  return <DemoView msg={demo.msg} onClick={handleClick} />
+  return <OverviewView msg={demo.msg} onClick={handleClick} t={t} />
 })
